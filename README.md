@@ -1,11 +1,14 @@
-# Título del trabajo
+# Engine Failure Corporation
 
-Descripción breve del proyecto a realizar (2-3 frases).
+Somos una organización sin ánimo de lucro que comparte una misma pasión: los números y los coches.
+Cuando combinamos las dos cosas, aparecen las fichas técnicas.
 
 ## Integrantes del equipo
 
-Nombres, apellidos, y usuario GitHub de los integrantes del equipo.
+Adriano Funes Ocete @adrifunes
+Osama Bouatman El-Khattabi @osamabouatman
+Alonso Acacio Barrueco @alonso55099
 
 ## Objetivos del trabajo
 
-Lista de los objetivos que se persiguen con el trabajo propuesto.
+Crear una base de datos en la que cualquier persona que lo desee pueda comprobar datos técnicos de un vehículo.
