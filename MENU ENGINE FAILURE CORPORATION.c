@@ -15,8 +15,9 @@ typedef struct
 	char carroceria[100];
 	char motor[100];
 } Vehiculo;
-void menu_usuarios(Usuarios mis_usuarios[]);
 void menu_general(Usuario mis_usuarios[], Vehiculo mis_vehiculos[]);
+void menu_usuarios(Usuario mis_usuarios[]);
+void menu_vehiculo (Vehiculo mis_vehiculos[]);
 int main()
 {
     Usuario mis_usuarios[100];
@@ -156,3 +157,85 @@ int iOpcion;
     
 			
 }
+ void menu_vehiculo (Vehiculo mis_vehiculos[])
+{   
+int iOpcion;
+
+	
+	do{
+       
+    	
+        do {
+			system("cls");
+			printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+	    	printf("\n_______________________MENU VEHICULOS______________________________\n\n");
+        	printf("\n1. Añadir vehiculos.");
+	        printf("\n2. Borrar vehiculos.");
+	        printf("\n3. Modificar datos de vehiculos.");
+	        printf("\n4. Buscar vehiculo.");
+	        printf("\n5. Listado por marca.");
+	        printf("\n6. Listado por tipo.");
+	        printf("\n7. Volver a menu general.")
+    	    printf("\n___________________________________________________________________\n");
+        	printf("\n\n\nIntroduzca su opcion: ");
+    		fflush(stdin);        	
+        	scanf("%d",&iOpcion);
+        	printf("\n");
+        } while(iOpcion < 1 || iOpcion > 7);
+        
+        
+        switch (iOpcion)
+		{
+            case 1:
+                
+			   alta_vehiculo(Vehiculo mis_vehiculos[]);
+                
+            break;
+            
+            case 2:
+            	
+	           baja_vehiculo(Vehiculo mis_vehiculos[]);
+				
+            break;
+            
+            case 3:
+            	
+                modificacion_vehiculo (Vehiculo mis_vehiculos[]);
+				
+            break;
+            
+            case 4:
+            	
+            	busqueda_vehiculo (Vehiculo mis_vehiculos[]);
+            	
+            break;
+			
+			case 5:
+			 
+			  listado_vehiculos_ordenado (Vehiculo mis_vehiculos, int iOpcion);
+			  
+			  break;
+			  
+			 case 6:	
+                    
+				listado_vehiculos_ordenado (Vehiculo mis_vehiculos, int iOpcion);
+					
+				break;
+				    	
+			case 7:
+                
+				printf("\nSaliendo del programa.\n");
+				
+			break;				
+          
+            default:
+                printf("\nOpcion no valida\n");
+                
+                break;
+             
+        
+		}
+    }while (iOpcion!= 7);
+}
+    
+			
