@@ -33,14 +33,14 @@ int iOpcion;
             
             case 2:
             	
-				modificacion_usuarios(mis_usuarios, mis_prestamos);
+				baja_usuarios(mis_usuarios);
 				grabar_usuarios_fichero (mis_usuarios);
 				
             break;	
                         
 			case 3:
 				
-				baja_usuarios(mis_usuarios, mis_prestamos);
+				modificar_usuarios(mis_usuarios);
 				grabar_usuarios_fichero (mis_usuarios);
 			
 			break;	
