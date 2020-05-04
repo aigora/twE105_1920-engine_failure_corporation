@@ -16,6 +16,19 @@ typedef struct
 	char motor[100];
 } Vehiculo;
 void menu_usuarios(Usuarios mis_usuarios[]);
+int main()
+{
+    Usuario mis_usuarios[100];
+    Vehiculos mis_vehicuos[100];  
+   
+    leer_usuarios_fichero (mis_usuarios);
+    leer_vehiculo_fichero (mis_vehiculos);    
+    
+    menu_general(mis_usuarios, mis_vehiculos);
+    
+    
+    return 0;
+}
 void menu_usuarios(Usuarios mis_usuarios[])
 {
 int iOpcion;
