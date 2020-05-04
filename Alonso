@@ -1,0 +1,65 @@
+
+#include<stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+typedef struct
+{
+	char nickname[100];
+	char correo[100];
+	char nombre[100];
+	char apellido[100];
+} Usuario;
+
+typedef struct
+{
+	char tipo[100];
+	char marca[100];
+	char modelo[100];
+	char carroceria[100];
+	char motor[100];
+} Vehiculo;
+
+void menu_general(Usuario mis_usuarios[], Vehiculo mis_vehiculos[])
+{   
+int iOpcion;
+
+	
+	do{
+       
+
+        do {
+			system("cls");
+			printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+	    	printf("\n_______________________MENU PRINCIPAL______________________________\n\n");
+        	printf("\n1. Gestion de Usuarios.");
+        	printf("\n2. Gestion de Vehiculos.");
+	        printf("\n3. Salir.");
+    	    printf("\n___________________________________________________________________\n");
+        	printf("\n\n\nIntroduzca su opcion: ");
+    		fflush(stdin);        	
+        	scanf("%d",&iOpcion);
+        	printf("\n");
+        } while(iOpcion < 1 || iOpcion > 3);
+        
+           	switch(iOpcion)
+           	
+			   case 1:
+			   	
+			 menu_usuarios(Usuarios mis_usuarios[]);
+			   
+			   break;  
+			      
+         case 2: 
+               
+       menu_vehiculos(Vehiculo mis_vehiculos[]);
+       
+       break;
+       
+       case 3:
+       
+      	printf("\nSaliendo del programa.\n");
+        
+       break;
+             
+			 
