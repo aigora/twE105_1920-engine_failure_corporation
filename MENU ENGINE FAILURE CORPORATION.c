@@ -16,10 +16,11 @@ typedef struct
 	char motor[100];
 } Vehiculo;
 void menu_usuarios(Usuarios mis_usuarios[]);
+void menu_general(Usuario mis_usuarios[], Vehiculo mis_vehiculos[]);
 int main()
 {
     Usuario mis_usuarios[100];
-    Vehiculos mis_vehicuos[100];  
+    Vehiculos mis_vehiculos[100];  
    
     leer_usuarios_fichero (mis_usuarios);
     leer_vehiculo_fichero (mis_vehiculos);    
@@ -29,6 +30,60 @@ int main()
     
     return 0;
 }
+
+void menu_general(Usuario mis_usuarios[], Vehiculo mis_vehiculos[])
+{   
+int iOpcion;
+
+	
+	do{
+       
+    	
+        do {
+			system("cls");
+			printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+	    	printf("\n_______________________MENU PRINCIPAL______________________________\n\n");
+        	printf("\n1. Gestion de Usuarios.");
+        	printf("\n2. Gestion de Vehiculos.");
+	        printf("\n3. Salir.");
+    	    printf("\n___________________________________________________________________\n");
+        	printf("\n\n\nIntroduzca su opcion: ");
+    		fflush(stdin);        	
+        	scanf("%d",&iOpcion);
+        	printf("\n");
+        } while(iOpcion < 1 || iOpcion > 3);
+        
+     
+        switch (iOpcion)
+		{
+            case 1:
+                
+		 menu_usuarios(mis_usuarios);
+                
+            break;
+            
+            case 2:
+            	
+	         menu_vehiculos(mis_vehiculos);
+				
+            break;
+            
+            case 3:
+            	
+                printf("Saliendo del programa...");
+				
+            break;
+							
+            default:
+                printf("\nOpcion no valida\n");
+                
+	    break;
+             
+        
+		}
+    }while (iOpcion!= 3);
+}
+
 void menu_usuarios(Usuarios mis_usuarios[])
 {
 int iOpcion;
