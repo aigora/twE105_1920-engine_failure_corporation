@@ -22,7 +22,7 @@ void menu_vehiculo (Vehiculo mis_vehiculos[]);
 int main()
 {
     Usuario mis_usuarios[100];
-    Vehiculos mis_vehiculos[100];  
+    Vehiculo mis_vehiculos[100];  
    
     leer_usuarios_fichero (mis_usuarios);
     leer_vehiculo_fichero (mis_vehiculos);    
@@ -86,7 +86,7 @@ int iOpcion;
     }while (iOpcion!= 3);
 }
 
-void menu_usuarios(Usuarios mis_usuarios[])
+void menu_usuarios(Usuario mis_usuarios[])
 {
 int iOpcion;
 
@@ -176,7 +176,7 @@ int iOpcion;
 	        printf("\n4. Buscar vehiculo.");
 	        printf("\n5. Listado por marca.");
 	        printf("\n6. Listado por tipo.");
-	        printf("\n7. Volver a menu general.")
+	        printf("\n7. Volver a menu general.");
     	    printf("\n___________________________________________________________________\n");
         	printf("\n\n\nIntroduzca su opcion: ");
     		fflush(stdin);        	
@@ -189,37 +189,37 @@ int iOpcion;
 		{
             case 1:
                 
-			   alta_vehiculo(Vehiculo mis_vehiculos[]);
+			alta_vehiculo(mis_vehiculos);
                 
             break;
             
             case 2:
             	
-	           baja_vehiculo(Vehiculo mis_vehiculos[]);
+	           baja_vehiculo(mis_vehiculos);
 				
             break;
             
             case 3:
             	
-                modificacion_vehiculo (Vehiculo mis_vehiculos[]);
+                modificacion_vehiculo(mis_vehiculos);
 				
             break;
             
             case 4:
             	
-            	busqueda_vehiculo (Vehiculo mis_vehiculos[]);
+            	busqueda_vehiculo(mis_vehiculos);
             	
             break;
 			
 			case 5:
 			 
-			  listado_vehiculos_ordenado (Vehiculo mis_vehiculos, int iOpcion);
+			  listado_vehiculos_ordenado(mis_vehiculos,iOpcion);
 			  
 			  break;
 			  
 			 case 6:	
                     
-				listado_vehiculos_ordenado (Vehiculo mis_vehiculos, int iOpcion);
+				listado_vehiculos_ordenado(mis_vehiculos,iOpcion);
 					
 				break;
 				    	
@@ -238,5 +238,4 @@ int iOpcion;
 		}
     }while (iOpcion!= 7);
 }
-    
 			
