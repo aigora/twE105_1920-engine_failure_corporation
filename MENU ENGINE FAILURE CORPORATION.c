@@ -22,6 +22,7 @@ void menu_usuarios(Usuario mis_usuarios[]);
 void menu_vehiculo (Vehiculo mis_vehiculos[]);
 void alta_usuario(Usuario mis_usuarios[]);
 void listado_usuarios_por_apellido(Usuario mis_usuarios[]);
+void eliminar_espacios (char sLiteral[]);
 void ordenar_usuarios (Usuario mis_usuarios[]);
 int main()
 {
@@ -301,5 +302,130 @@ void alta_usuario(Usuario mis_usuarios[])
 	
 	printf("\nEl Usuario ha sido dado de alta correctamente.\n\n");
 	system("pause");
+	void eliminar_espacios (char sLiteral[])
+{   
+    int iLongitud;
+    int iContador;
+    
+
+	iLongitud=strlen(sLiteral);
 	
+
+	for(iContador = 0; (iContador<iLongitud); iContador++)
+		if (sLiteral[iContador]=='\n')
+			sLiteral[iContador]='\0';	
+
+	
+		sLiteral[iContador]='\0';
+		   }
+		   
+void ordenar_usuarios (Usuario mis_usuarios[])
+{
+int iRegistros;
+	
+	char tmp[100];
+	int num_tmp;
+    
+    
+	for(iRegistros = 0 ; (strcmp(mis_usuarios[iRegistros].nickname,"") !=0) ; iRegistros++);
+	
+	int i, j;
+	
+	
+	for(i=0; i<iRegistros-1; i++)
+	{
+		for(j=i+1; j<iRegistros; j++)
+		{
+		
+			if(strcmp(mis_usuarios[i].apellido, mis_usuarios[j].apellido) > 0)
+			{
+				
+			if(strcmp(mis_usuarios[i].apellido, mis_usuarios[j].apellido) > 0)
+			{
+			
+				num_tmp = mis_usuarios[i].num_registro;
+				mis_usuarios[i].num_registro = mis_usuarios[j].num_registro;
+				mis_usuarios[j].num_registro = num_tmp;
+				strcpy (tmp, mis_usuarios[i].nickname);
+				strcpy (mis_usuarios[i].nickname, mis_usuarios[j].nickname);
+				strcpy (mis_usuarios[j].nickname, tmp);
+				strcpy (tmp, mis_usuarios[i].nombre);
+				strcpy (mis_usuarios[i].nombre, mis_usuarios[j].nombre);
+				strcpy (mis_usuarios[j].nombre, tmp);
+				strcpy (tmp, mis_usuarios[i].apellido);
+				strcpy (mis_usuarios[i].apellido, mis_usuarios[j].apellido);
+				strcpy (mis_usuarios[j].apellido, tmp);
+				strcpy (tmp, mis_usuarios[i].email);
+				strcpy (mis_usuarios[i].email, mis_usuarios[j].email);
+				strcpy (mis_usuarios[j].email, tmp);
+				
+				}
+			
+			}	
+		}
+	}
+}
+}
+void eliminar_espacios (char sLiteral[])
+{   
+    int iLongitud;
+    int iContador;
+    
+
+	iLongitud=strlen(sLiteral);
+	
+
+	for(iContador = 0; (iContador<iLongitud); iContador++)
+		if (sLiteral[iContador]=='\n')
+			sLiteral[iContador]='\0';	
+
+	
+		sLiteral[iContador]='\0';
+		   }
+		   
+void ordenar_usuarios (Usuario mis_usuarios[])
+{
+int iRegistros;
+	
+	char tmp[100];
+	int num_tmp;
+    
+    
+	for(iRegistros = 0 ; (strcmp(mis_usuarios[iRegistros].nickname,"") !=0) ; iRegistros++);
+	
+	int i, j;
+	
+	
+	for(i=0; i<iRegistros-1; i++)
+	{
+		for(j=i+1; j<iRegistros; j++)
+		{
+		
+			if(strcmp(mis_usuarios[i].apellido, mis_usuarios[j].apellido) > 0)
+			{
+				
+			if(strcmp(mis_usuarios[i].apellido, mis_usuarios[j].apellido) > 0)
+			{
+			
+				num_tmp = mis_usuarios[i].num_registro;
+				mis_usuarios[i].num_registro = mis_usuarios[j].num_registro;
+				mis_usuarios[j].num_registro = num_tmp;
+				strcpy (tmp, mis_usuarios[i].nickname);
+				strcpy (mis_usuarios[i].nickname, mis_usuarios[j].nickname);
+				strcpy (mis_usuarios[j].nickname, tmp);
+				strcpy (tmp, mis_usuarios[i].nombre);
+				strcpy (mis_usuarios[i].nombre, mis_usuarios[j].nombre);
+				strcpy (mis_usuarios[j].nombre, tmp);
+				strcpy (tmp, mis_usuarios[i].apellido);
+				strcpy (mis_usuarios[i].apellido, mis_usuarios[j].apellido);
+				strcpy (mis_usuarios[j].apellido, tmp);
+				strcpy (tmp, mis_usuarios[i].email);
+				strcpy (mis_usuarios[i].email, mis_usuarios[j].email);
+				strcpy (mis_usuarios[j].email, tmp);
+				
+				}
+			
+			}	
+		}
+	}
 }
