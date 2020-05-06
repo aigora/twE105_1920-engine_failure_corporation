@@ -1,6 +1,7 @@
 #include<stdio.h>
 typedef struct
 {
+	int num_registro;
 	char nickname[100];
 	char correo[100];
 	char nombre[100];
