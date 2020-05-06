@@ -1,9 +1,10 @@
 #include<stdio.h>
+#include<string.h>
 typedef struct
 {
 	int num_registro;
 	char nickname[100];
-	char correo[100];
+	char email[100];
 	char nombre[100];
 	char apellido[100];
 } Usuario;
@@ -19,6 +20,9 @@ typedef struct
 void menu_general(Usuario mis_usuarios[], Vehiculo mis_vehiculos[]);
 void menu_usuarios(Usuario mis_usuarios[]);
 void menu_vehiculo (Vehiculo mis_vehiculos[]);
+void alta_usuario(Usuario mis_usuarios[]);
+void listado_usuarios_por_apellido(Usuario mis_usuarios[]);
+void ordenar_usuarios (Usuario mis_usuarios[]);
 int main()
 {
     Usuario mis_usuarios[100];
@@ -238,4 +242,64 @@ int iOpcion;
 		}
     }while (iOpcion!= 7);
 }
-			
+void alta_usuario(Usuario mis_usuarios[])
+{
+	int i;
+	int longitud;
+	int x=0;
+	int iContador;
+	int iResultado;
+	int iRegistrados;
+	char nickname[100];
+	
+	
+	for(iRegistrados = 0 ; (strcmp(mis_usuarios[iRegistrados].nickname,"") !=0) ; iRegistrados++);
+	
+	mis_usuarios[iRegistrados].num_registro = iRegistrados;
+	
+	system("cls");
+	printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+	printf("\n_____________________ALTA DE USUARIOS______________________________\n\n");
+
+
+    do
+	{
+     	printf("Nickname: ");
+		fflush(stdin);
+ 	 	
+		for(iContador = 0 ; ( (strcmp(mis_usuarios[iContador].nickname, nickname)!=0) && (iContador <= iRegistrados ) ); iContador++);
+		
+		if (iContador <= iRegistrados)
+			printf("\nEl nickname %s ya está en uso y por tanto no puede ser elegido.\n\n", mis_usuarios[iContador].nickname);	
+	} while ( iContador <= iRegistrados );   
+	strcpy (mis_usuarios[iRegistrados].nickname, nickname);
+		    
+	printf("Nombre del Usuario: ");
+	fflush(stdin);
+	fgets(mis_usuarios[iRegistrados].nombre, 15, stdin);
+	eliminar_espacios(mis_usuarios[iRegistrados].nombre);
+        
+    printf("Apellido del Usuario: ");
+    fflush(stdin);
+	fgets(mis_usuarios[iRegistrados].apellido, 25, stdin);
+	eliminar_espacios(mis_usuarios[iRegistrados].apellido);
+              
+	
+    do
+	{
+        printf ("e-mail: ");
+        fflush(stdin);
+        fgets(mis_usuarios[iRegistrados].email, 40, stdin);
+		eliminar_espacios(mis_usuarios[iRegistrados].email);      
+        iResultado = comprobar_email(mis_usuarios[iRegistrados].email);
+ 	  
+		if (iResultado==2)
+			printf("\nDireccion de email valida\n\n")  ;
+		else
+			printf("\nDireccion de email no valida\n\n");
+	} while ( iResultado!=2 );
+	
+	printf("\nEl Usuario ha sido dado de alta correctamente.\n\n");
+	system("pause");
+	
+}
