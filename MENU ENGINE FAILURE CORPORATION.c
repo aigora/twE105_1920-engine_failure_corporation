@@ -22,6 +22,8 @@ void menu_usuarios(Usuario mis_usuarios[]);
 void menu_vehiculo (Vehiculo mis_vehiculos[]);
 void alta_usuario(Usuario mis_usuarios[]);
 void listado_usuarios_por_apellido(Usuario mis_usuarios[]);
+void grabar_usuarios_fichero(Usuario mis_usuarios[]);
+void leer_usuarios_fichero (Usuario mis_usuarios[]);
 void eliminar_espacios (char sLiteral[]);
 void ordenar_usuarios (Usuario mis_usuarios[]);
 int main()
@@ -285,6 +287,73 @@ void alta_usuario(Usuario mis_usuarios[])
 	fgets(mis_usuarios[iRegistrados].apellido, 25, stdin);
 	eliminar_espacios(mis_usuarios[iRegistrados].apellido);
               
+	
+	
+	void grabar_usuarios_fichero (Usuario mis_usuarios[])
+{   
+    int iContador;
+ 
+	FILE *pFichero;
+    	    
+	pFichero = fopen("Usuarios.txt","w");
+	
+	if (pFichero == NULL)
+	{	
+		printf("\nError al abrir el fichero de Usuarios.\n");
+		system("pause");		
+	}
+	else
+	{	
+		printf("\nFichero de Usuarios abierto correctamente.\n");
+		for(iContador = 0 ; (strcmp(mis_usuarios[iContador].nickname,"") !=0) ; iContador++)
+		{	
+			fprintf(pFichero, "%4d; %-11s; %-15s; %-25s; %-15s;\n", mis_usuarios[iContador].num_registro, mis_usuarios[iContador].nickname, mis_usuarios[iContador].nombre, mis_usuarios[iContador].apellido, mis_usuarios[iContador].email);
+		}		
+	}
+	
+
+	fclose(pFichero);      					
+
+}
+	void leer_usuarios_fichero (Usuario mis_usuarios[])
+{   
+    int iContador;
+	FILE *pFichero;
+
+	int num_registro;
+    	        
+	pFichero = fopen("Usuarios.txt","r");
+	
+	if (pFichero == NULL)
+	{	
+		printf("\nError al abrir el fichero de Usuarios.\n");
+		system("pause");		
+	}	
+	else
+	{	
+		printf("\nFichero de Usuarios abierto correctamente.\n");
+		iContador = 0;
+		while ( !feof(pFichero) )
+		{
+			fscanf(pFichero, "%d; %[^;]; %[^;]; %[^;]; %[^;];\n", &num_registro, mis_usuarios[iContador].nickname, mis_usuarios[iContador].nombre, mis_usuarios[iContador].apellido, mis_usuarios[iContador].email);		
+			mis_usuarios[iContador].num_registro = num_registro;			
+			eliminar_espacios (mis_usuarios[iContador].nickname);
+			eliminar_espacios (mis_usuarios[iContador].nombre);
+			eliminar_espacios (mis_usuarios[iContador].apellido);
+			eliminar_espacios (mis_usuarios[iContador].email);														
+		
+			iContador++;
+		}		
+	}
+	       
+	      
+	fclose(pFichero);      					
+
+}
+	
+	
+	
+	
 	
     do
 	{
