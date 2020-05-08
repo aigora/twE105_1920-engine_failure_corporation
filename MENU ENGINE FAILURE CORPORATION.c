@@ -166,6 +166,7 @@ int iOpcion;
     
 			
 }
+
  void menu_vehiculo (Vehiculo mis_vehiculos[])
 {   
 int iOpcion;
@@ -291,7 +292,7 @@ void alta_usuario(Usuario mis_usuarios[])
               
 	
 	
-	void grabar_usuarios_fichero (Usuario mis_usuarios[])
+void grabar_usuarios_fichero (Usuario mis_usuarios[])
 {   
     int iContador;
  
@@ -375,22 +376,7 @@ void leer_usuarios_fichero (Usuario mis_usuarios[])
 	printf("\nEl Usuario ha sido dado de alta correctamente.\n\n");
 	system("pause");
 }
-void eliminar_espacios (char sLiteral[])
-{   
-    int iLongitud;
-    int iContador;
-    
 
-	iLongitud=strlen(sLiteral);
-	
-
-	for(iContador = 0; (iContador<iLongitud); iContador++)
-		if (sLiteral[iContador]=='\n')
-			sLiteral[iContador]='\0';	
-
-	
-		sLiteral[iContador]='\0';
- }
 void eliminar_espacios (char sLiteral[])
 {   
     int iLongitud;
