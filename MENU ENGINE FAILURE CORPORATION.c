@@ -29,6 +29,8 @@ void ordenar_usuarios (Usuario mis_usuarios[]);
 int busqueda_usuarios(Usuario mis_usuarios[]);
 void modificacion_usuarios(Usuario mis_usuarios[]);
 void baja_usuarios(Usuario mis_usuarios[]);
+int comprobar_email(char email[])
+
 int main()
 {
     Usuario mis_usuarios[100];
@@ -673,4 +675,33 @@ void baja_usuarios(Usuario mis_usuarios[])
 	} 
  
 	system("pause");  
+}
+
+
+int comprobar_email(char email[])
+{   
+    int iLongitud;
+    int iResultado=0;
+    int iContador;
+    
+   iLongitud=strlen(email);
+
+		for(iContador = 0; (iContador<iLongitud && iResultado!=1); iContador++)
+	{ 
+		if (email[iContador] == '@')
+			iResultado=1;
+	}		
+
+
+	if (iResultado==1)
+	{
+		while(iContador<iLongitud && iResultado!=2)
+		{
+			iContador++;
+			if (email[iContador]=='.') iResultado=2;
+		}		
+	}	  
+	
+	return (iResultado);
+
 }
