@@ -28,6 +28,7 @@ void eliminar_espacios (char sLiteral[]);
 void ordenar_usuarios (Usuario mis_usuarios[]);
 int busqueda_usuarios(Usuario mis_usuarios[]);
 void modificacion_usuarios(Usuario mis_usuarios[]);
+void baja_usuarios(Usuario mis_usuarios[]);
 int main()
 {
     Usuario mis_usuarios[100];
@@ -591,4 +592,85 @@ void modificacion_usuarios(Usuario mis_usuarios[])
  
 	system("pause");  
 
+}
+
+void baja_usuarios(Usuario mis_usuarios[])
+{
+	
+    int iRegistroBuscado, iRegistrados, iContador;
+	int num_registro;
+	char cSeguro;
+	
+	int iResultado;
+	
+	
+	iResultado = busqueda_usuarios(mis_usuarios);
+	
+
+	if (iResultado == 0)
+	{
+	
+	    
+		for(iRegistrados = 0 ; (strcmp(mis_usuarios[iRegistrados].nickname,"") !=0) ; iRegistrados++);	 	
+
+		
+		do {
+			
+			printf("\nIntroduzca el numero de registro del Usuario a eliminar: ");
+    		fflush(stdin);        	
+    		scanf("%d", &num_registro);
+    		printf("\n");
+ 	
+ 		
+			for(iRegistroBuscado = 0 ; (mis_usuarios[iRegistroBuscado].num_registro != num_registro) && (iRegistroBuscado <= iRegistrados ); iRegistroBuscado++);
+		
+			if (iRegistroBuscado > iRegistrados)
+				printf("\nNo existe el registro %d.\n\n", num_registro);				
+		
+		} while (iRegistroBuscado > iRegistrados); 
+
+		
+	
+	
+	
+	
+		
+		
+	
+		
+			do {
+				printf("\n%4d %-11s %-15s %-25s %-15s", mis_usuarios[iRegistroBuscado].num_registro, mis_usuarios[iRegistroBuscado].nickname, mis_usuarios[iRegistroBuscado].nombre, mis_usuarios[iRegistroBuscado].apellido, mis_usuarios[iRegistroBuscado].email);
+				printf("\n\nSe va a proceder a borrar el registro anterior.  Esta seguro? (s/n) ");
+    			fflush(stdin);        	
+    			scanf("%c", &cSeguro);
+    			printf("\n");
+				} while (cSeguro != 's' && cSeguro != 'n');
+	
+		
+			if (cSeguro == 's')
+			{	
+			
+				for(iContador = iRegistroBuscado ; (strcmp(mis_usuarios[iContador].nickname,"") !=0) ; iContador++)
+				{	
+				
+					mis_usuarios[iContador].num_registro = mis_usuarios[iContador+1].num_registro;
+					strcpy (mis_usuarios[iContador].nickname, mis_usuarios[iContador+1].nickname);
+					strcpy (mis_usuarios[iContador].nombre, mis_usuarios[iContador+1].nombre);
+					strcpy (mis_usuarios[iContador].apellido, mis_usuarios[iContador+1].apellido);
+					strcpy (mis_usuarios[iContador].email, mis_usuarios[iContador+1].email);
+				}				
+		
+				for(iContador = 0 ; (strcmp(mis_usuarios[iContador].nickname,"") !=0) ; iContador++)
+					mis_usuarios[iContador].num_registro = iContador;
+				printf("\nEl Usuario ha sido eliminado correctamente.\n\n");
+			}
+			else
+				printf("\nEl Usuario no ha sido eliminado.\n\n");		
+
+		
+
+		
+	} 
+ 
+	system("pause");  
 }
