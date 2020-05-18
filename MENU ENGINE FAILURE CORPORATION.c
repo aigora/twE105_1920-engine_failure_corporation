@@ -29,7 +29,8 @@ void ordenar_usuarios (Usuario mis_usuarios[]);
 int busqueda_usuarios(Usuario mis_usuarios[]);
 void modificacion_usuarios(Usuario mis_usuarios[]);
 void baja_usuarios(Usuario mis_usuarios[]);
-int comprobar_email(char email[])
+int comprobar_email(char email[]);
+void alta_vehiculo(Vehiculo mis_vehiculos[]);
 
 int main()
 {
@@ -705,3 +706,49 @@ int comprobar_email(char email[])
 	return (iResultado);
 
 }
+
+void alta_vehiculo(Vehiculo mis_vehiculos[])
+{   
+	int iOpcion;
+    int iContador;
+    char smodelo[100];
+    int iRegistrados;
+    
+    
+    for(iRegistrados = 0 ; (strcmp(mis_vehiculos[iRegistrados].modelo,"") !=0) ; iRegistrados++);
+       
+   
+    mis_vehiculos[iRegistrados].num_vehiculo = iRegistrados;
+	
+    system("cls");
+    printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+    printf("\n_______________________ALTA DE VEHICULOS______________________________\n\n");
+
+	
+    printf("Tipo del vehiculo: ");
+    fflush(stdin);
+	fgets(mis_vehiculos[iRegistrados].tipo, 35, stdin);
+	eliminar_espacios (mis_vehiculos[iRegistrados].tipo);
+	
+     printf("Marca del vehiculo: ");
+    fflush(stdin);
+    fgets(mis_vehiculos[iRegistrados].marca, 35, stdin);
+	eliminar_espacios (mis_vehiculos[iRegistrados].marca); 
+	
+    printf("Modelo: ");
+    fflush(stdin);
+	fgets(smodelo, 11, stdin);
+	eliminar_espacios (smodelo);    
+	strcpy (mis_vehiculos[iRegistrados].modelo, smodelo);
+		    
+    printf("Carroceria del vehiculo: ");
+    fflush(stdin);
+    fgets(mis_vehiculos[iRegistrados].carroceria, 20, stdin);
+	eliminar_espacios (mis_vehiculos[iRegistrados].carroceria);
+    
+      
+
+	printf("\nEl vehiculo ha sido dado de alta correctamente.\n\n");
+	system("pause");
+		
+
