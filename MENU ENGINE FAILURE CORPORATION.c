@@ -27,6 +27,7 @@ void leer_usuarios_fichero (Usuario mis_usuarios[]);
 void eliminar_espacios (char sLiteral[]);
 void ordenar_usuarios (Usuario mis_usuarios[]);
 int busqueda_usuarios(Usuario mis_usuarios[]);
+void modificacion_usuarios(Usuario mis_usuarios[]);
 int main()
 {
     Usuario mis_usuarios[100];
@@ -490,4 +491,104 @@ int busqueda_usuarios(Usuario mis_usuarios[])
 		printf("\n");
 		return 0;
 	}
+}
+
+void modificacion_usuarios(Usuario mis_usuarios[])
+{   
+    int iContador, iContador2, iRegistrados;
+	char Temporal[100];
+	int num_registro;
+	int iResultado;
+
+		
+	iResultado = busqueda_usuarios(mis_usuarios);
+	
+	
+	if (iResultado == 0)
+	{
+		
+		for(iRegistrados = 0 ; (strcmp(mis_usuarios[iRegistrados].nickname,"") !=0) ; iRegistrados++);	 	
+
+		
+		do {
+			
+			printf("\nIntroduzca el numero de registro del Usuario a modificar: ");
+    		fflush(stdin);        	
+    		scanf("%d", &num_registro);
+    		printf("\n");
+ 	 		
+			for(iContador = 0 ; (mis_usuarios[iContador].num_registro != num_registro) && (iContador <= iRegistrados ); iContador++);
+		
+			if (iContador > iRegistrados)
+				printf("\nNo existe el registro %d.\n\n", num_registro);			
+		} while (iContador > iRegistrados); 
+
+    		do
+			{	
+    			printf("Nickname (actual %s): ", mis_usuarios[iContador].nickname);
+    			fflush(stdin); 
+				fgets(Temporal, 10, stdin);
+				eliminar_espacios (Temporal);   			
+ 	 			
+				for(iContador2 = 0 ; ( (strcmp(mis_usuarios[iContador2].nickname, Temporal)!=0) && (iContador2 <= iRegistrados ) ); iContador2++);
+				if (iContador2 <= iRegistrados && strcmp(Temporal,"") !=0 )
+					printf("\nEl nickname %s corresponde a otro usuario existente (no puede haber duplicados).\n\n", mis_usuarios[iContador2].nickname);
+			} while ( iContador2 <= iRegistrados && strcmp(Temporal,"") !=0 );
+    		if (strcmp(Temporal,"") !=0)		
+				strcpy (mis_usuarios[iContador].nickname, Temporal);
+		
+
+    		    
+		printf("Nombre del usuario (actual %s): ", mis_usuarios[iContador].nombre);
+		
+    	strcpy(Temporal, mis_usuarios[iContador].nombre);
+		fflush(stdin);  
+		fgets(mis_usuarios[iContador].nombre, 15, stdin);
+		eliminar_espacios (mis_usuarios[iContador].nombre);
+     	
+    	if (strcmp(mis_usuarios[iContador].nombre,"") ==0)
+    		strcpy(mis_usuarios[iContador].nombre, Temporal);
+	        
+    	printf("Apellido del Usuario (actual %s): ", mis_usuarios[iContador].apellido);
+    	strcpy(Temporal, mis_usuarios[iContador].apellido);
+		fflush(stdin);
+		fgets(mis_usuarios[iContador].apellido, 25, stdin); 
+		eliminar_espacios (mis_usuarios[iContador].apellido);
+    	if (strcmp(mis_usuarios[iContador].apellido,"") ==0)
+        	strcpy(mis_usuarios[iContador].apellido, Temporal);       
+     
+		
+		iResultado = 2;       
+    	do
+		{	
+        	printf ("e-mail del Usuario (actual %s): ", mis_usuarios[iContador].email);
+  			strcpy(Temporal, mis_usuarios[iContador].email); 
+        	fflush(stdin);
+        	fgets(mis_usuarios[iContador].email, 40, stdin);
+			eliminar_espacios (mis_usuarios[iContador].email);		        	
+          	
+    		if (strcmp(mis_usuarios[iContador].email,"") ==0)
+    		{	
+    			strcpy(mis_usuarios[iContador].email, Temporal);
+			}
+		
+        	else
+        	{
+        		
+        		iResultado = comprobar_email(mis_usuarios[iContador].email);
+ 	  
+				if (iResultado==2)
+					printf("\nDireccion de email valida\n\n")  ;
+				else
+					printf("\nDireccion de email no valida\n\n");
+			}
+
+		} while ( iResultado!=2 );  
+		
+		printf("\nEl Usuario ha sido modificado correctamente.\n\n");
+	
+	} 
+ 
+	system("pause");  
+
 }
