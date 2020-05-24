@@ -750,5 +750,44 @@ void alta_vehiculo(Vehiculo mis_vehiculos[])
 
 	printf("\nEl vehiculo ha sido dado de alta correctamente.\n\n");
 	system("pause");
-		
+}
 
+void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[])
+{   
+    int iContador;
+    
+
+    if (sOpcion == "tipo")
+    {
+    	
+    	ordenar_vehiculos_tipo (mis_vehiculos);
+    	system("cls");
+		printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");    	
+		printf("\n________________LISTADO DE VEHICULOS POR TIPO_______________________\n\n");    	
+	}
+	else if (sOpcion == "marca")
+	{
+		
+		ordenar_vehiculos_marca (mis_vehiculos);
+    	system("cls");
+		printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");    	
+		printf("\n________________LISTADO DE VEHICULOS POR MARCA________________________\n\n");   		
+	}
+	
+	
+    	 
+    	    
+
+	printf("\n   # %-15s %-20s %-15s %-15s","MODELO", "TIPO","CARROCERIA", "MARCA");
+	printf("\n   _ ____        ______                              ______               _____\n");
+ 
+  	
+	for(iContador = 0 ; (strcmp(mis_vehiculos[iContador].modelo,"") !=0) ; iContador++)
+	{
+		
+		printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador].marca);
+	}
+	printf("\n\n");
+    system("pause");
+	
+}
