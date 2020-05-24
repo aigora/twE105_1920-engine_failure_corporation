@@ -31,6 +31,10 @@ void modificacion_usuarios(Usuario mis_usuarios[]);
 void baja_usuarios(Usuario mis_usuarios[]);
 int comprobar_email(char email[]);
 void alta_vehiculo(Vehiculo mis_vehiculos[]);
+void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[]);
+void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[]);
+void leer_vehiculos_fichero (Vehiculo mis_vehiculos[]);
+void ordenar_vehiculos_marca (Vehiculo mis_vehiculos[]);
 
 int main()
 {
@@ -789,8 +793,9 @@ void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[])
 	}
 	printf("\n\n");
     system("pause");
+}
 	
-	void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[])
+void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[])
 {   
     int iContador;
 	FILE *pFichero;
@@ -816,7 +821,7 @@ void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[])
 
 }
 	
-}
+
 
 void leer_vehiculos_fichero (Vehiculo mis_vehiculos[])
 {   
@@ -852,5 +857,47 @@ void leer_vehiculos_fichero (Vehiculo mis_vehiculos[])
 	}
 	        
 	fclose(pFichero);      					
+
+}
+
+void ordenar_vehiculos_marca (Vehiculo mis_vehiculos[])
+{
+	
+	int iRegistrados;
+	char tmp[100];
+	int num_tmp;
+    
+    
+	for(iRegistrados = 0 ; (strcmp(mis_vehiculos[iRegistrados].modelo,"") !=0) ; iRegistrados++);
+	
+	int i, j;
+	
+	
+	for(i=0; i<iRegistrados-1; i++)
+	{
+		for(j=i+1; j<iRegistrados; j++)
+		{
+			
+			if(strcmp(mis_vehiculos[i].marca, mis_vehiculos[j].marca) > 0)
+			{
+							
+				num_tmp = mis_vehiculos[i].num_vehiculo;
+				mis_vehiculos[i].num_vehiculo = mis_vehiculos[j].num_vehiculo;
+				mis_vehiculos[j].num_vehiculo = num_tmp;
+				strcpy (tmp, mis_vehiculos[i].modelo);
+				strcpy (mis_vehiculos[i].modelo, mis_vehiculos[j].modelo);
+				strcpy (mis_vehiculos[j].modelo, tmp);
+				strcpy (tmp, mis_vehiculos[i].tipo);
+				strcpy (mis_vehiculos[i].tipo, mis_vehiculos[j].tipo);
+				strcpy (mis_vehiculos[j].tipo, tmp);
+				strcpy (tmp, mis_vehiculos[i].carroceria);
+				strcpy (mis_vehiculos[i].carroceria, mis_vehiculos[j].carroceria);
+				strcpy (mis_vehiculos[j].carroceria, tmp);
+				strcpy (tmp, mis_vehiculos[i].marca);
+				strcpy (mis_vehiculos[i].marca, mis_vehiculos[j].marca);
+				strcpy (mis_vehiculos[j].marca, tmp);
+			}
+		}
+	}		
 
 }
