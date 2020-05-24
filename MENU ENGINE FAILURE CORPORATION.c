@@ -35,6 +35,7 @@ void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[]);
 void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[]);
 void leer_vehiculos_fichero (Vehiculo mis_vehiculos[]);
 void ordenar_vehiculos_marca (Vehiculo mis_vehiculos[]);
+void modificacion_vehiculos(Vehiculo mis_vehiculos[]);
 
 int main()
 {
@@ -982,3 +983,82 @@ int busqueda_vehiculos(Vehiculo mis_vehiculos[])
 	}
 		
 }
+
+void modificacion_vehiculos(Vehiculo mis_vehiculos[])
+{   
+    int iContador, iContador2, iRegistrados;
+	char sTemporal[100];
+	int num_vehiculo;
+	int iResultado;
+
+			
+	iResultado = busqueda_vehiculos(mis_vehiculos);
+	
+	
+	if (iResultado == 0)
+	{
+	    
+		for(iRegistrados = 0 ; (strcmp(mis_vehiculos[iRegistrados].modelo,"") !=0) ; iRegistrados++);	 	
+
+		
+		do {
+			
+			printf("\nIntroduzca el numero de registro del vehiculo a modificar: ");
+    		fflush(stdin);        	
+    		scanf("%d", &num_vehiculo);
+    		printf("\n");
+ 	
+ 			
+			for(iContador = 0 ; (mis_vehiculos[iContador].num_vehiculo != num_vehiculo) && (iContador <= iRegistrados ); iContador++);
+			if (iContador > iRegistrados)
+				printf("\nNo existe el registro %d.\n\n", num_vehiculo);				
+		
+		} while (iContador > iRegistrados);  
+		
+	
+			
+				eliminar_espacios (mis_vehiculos[iContador].tipo);
+	    		printf("Tipo (actual %s): ", mis_vehiculos[iContador].tipo);
+	    		fflush(stdin);
+    			fgets(sTemporal, 11, stdin);
+    			eliminar_espacios (sTemporal);
+	    	if (strcmp(sTemporal,"") !=0)		
+				strcpy (mis_vehiculos[iContador].tipo, sTemporal);
+		
+ 
+     eliminar_espacios (mis_vehiculos[iContador].marca);
+		printf("Marca (actual %s): ", mis_vehiculos[iContador].marca);
+				
+    	strcpy(sTemporal, mis_vehiculos[iContador].marca);
+    	fflush(stdin);
+    	fgets(mis_vehiculos[iContador].marca, 35, stdin);
+    	eliminar_espacios (mis_vehiculos[iContador].tipo);	
+         	
+    	if (strcmp(mis_vehiculos[iContador].marca,"") ==0)
+    		strcpy(mis_vehiculos[iContador].marca, sTemporal);
+	        
+	    eliminar_espacios (mis_vehiculos[iContador].modelo);
+	    printf("Modelo (actual %s): ", mis_vehiculos[iContador].modelo);
+    	strcpy(sTemporal, mis_vehiculos[iContador].modelo);
+    	fflush(stdin);
+    	fgets(mis_vehiculos[iContador].modelo, 20, stdin);
+    	eliminar_espacios (mis_vehiculos[iContador].modelo);
+    	if (strcmp(mis_vehiculos[iContador].modelo,"") ==0)
+        	strcpy(mis_vehiculos[iContador].modelo, sTemporal);       
+              
+        eliminar_espacios (mis_vehiculos[iContador].carroceria);
+    	printf ("Carroceria (actual %s): ", mis_vehiculos[iContador].carroceria);
+    	strcpy(sTemporal, mis_vehiculos[iContador].carroceria);
+    	fflush(stdin);
+    	fgets(mis_vehiculos[iContador].carroceria, 35, stdin); 
+		eliminar_espacios (mis_vehiculos[iContador].carroceria);   	
+     	if (strcmp(mis_vehiculos[iContador].carroceria,"") ==0)
+        	strcpy(mis_vehiculos[iContador].carroceria, sTemporal);        
+
+		printf("\nEl vehiculo ha sido modificado correctamente.\n\n");
+	
+	} 
+ 
+	system("pause");   
+	
+}  	
