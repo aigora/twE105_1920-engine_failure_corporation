@@ -36,6 +36,7 @@ void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[]);
 void leer_vehiculos_fichero (Vehiculo mis_vehiculos[]);
 void ordenar_vehiculos_marca (Vehiculo mis_vehiculos[]);
 void modificacion_vehiculos(Vehiculo mis_vehiculos[]);
+void baja_vehiculos(Vehiculo mis_vehiculos[]);
 
 int main()
 {
@@ -1062,3 +1063,81 @@ void modificacion_vehiculos(Vehiculo mis_vehiculos[])
 	system("pause");   
 	
 }  	
+
+void baja_vehiculos(Vehiculo mis_vehiculos[])
+{   
+	
+    int iRegistroBuscado, iRegistrados, iContador;
+	int num_vehiculo;
+	
+	char cSeguro;
+	
+	int iResultado;
+
+	
+	iResultado = busqueda_vehiculos(mis_vehiculos);	
+	
+	
+	if (iResultado == 0)
+	{
+	
+	    
+		for(iRegistrados = 0 ; (strcmp(mis_vehiculos[iRegistrados].modelo,"") !=0) ; iRegistrados++);	 	
+
+	
+		do {
+		
+			printf("\nIntroduzca el numero de registro del Vehiculo a eliminar: ");
+    		fflush(stdin);        	
+    		scanf("%d", &num_vehiculo);
+    		printf("\n");
+ 	
+ 			
+			for(iRegistroBuscado = 0 ; (mis_vehiculos[iRegistroBuscado].num_vehiculo != num_vehiculo) && (iRegistroBuscado <= iRegistrados ); iRegistroBuscado++);
+					
+			if (iRegistroBuscado > iRegistrados)
+				printf("\nNo existe el registro %d.\n\n", num_vehiculo);				
+		
+		} while (iRegistroBuscado > iRegistrados);  
+
+	
+	
+		
+				
+			do {
+				printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iRegistroBuscado].num_vehiculo, mis_vehiculos[iRegistroBuscado].modelo, mis_vehiculos[iRegistroBuscado].tipo, mis_vehiculos[iRegistroBuscado].carroceria, mis_vehiculos[iRegistroBuscado].marca);
+				printf("\n\nSe va a proceder a borrar el registro anterior.  Esta seguro? (s/n) ");
+	    		fflush(stdin);        	
+	    		scanf("%c", &cSeguro);
+	    		printf("\n");
+		
+			} while (cSeguro != 's' && cSeguro != 'n');
+		
+		
+			if (cSeguro == 's')
+			{
+							
+				for(iContador = iRegistroBuscado ; (strcmp(mis_vehiculos[iContador].modelo,"") !=0) ; iContador++)
+				{	
+					
+					mis_vehiculos[iContador].num_vehiculo = mis_vehiculos[iContador+1].num_vehiculo;
+					strcpy (mis_vehiculos[iContador].modelo, mis_vehiculos[iContador+1].modelo);
+					strcpy (mis_vehiculos[iContador].tipo, mis_vehiculos[iContador+1].tipo);
+					strcpy (mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador+1].carroceria);
+					strcpy (mis_vehiculos[iContador].marca, mis_vehiculos[iContador+1].marca);
+				}	
+			
+					
+				for(iContador = 0 ; (strcmp(mis_vehiculos[iContador].modelo,"") !=0) ; iContador++)
+					mis_vehiculos[iContador].num_vehiculo = iContador;
+				printf("\nEl Vehiculo ha sido eliminado correctamente.\n\n");				
+			}
+			else
+				printf("\nEl Vehiculo no ha sido eliminado.\n\n");
+
+			
+	} 
+ 
+	system("pause");    
+		
+}
