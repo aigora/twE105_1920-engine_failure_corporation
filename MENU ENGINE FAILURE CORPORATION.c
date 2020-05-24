@@ -901,3 +901,84 @@ void ordenar_vehiculos_marca (Vehiculo mis_vehiculos[])
 	}		
 
 }
+
+void ordenar_vehiculos_tipo (Vehiculo mis_vehiculos[])
+{
+	
+	int iNumVehiculos;
+	char tmp[100];
+	int num_tmp;
+    
+	for(iNumVehiculos = 0 ; (strcmp(mis_vehiculos[iNumVehiculos].modelo,"") !=0) ; iNumVehiculos++);
+	
+	int i, j;
+	
+	for(i=0; i<iNumVehiculos-1; i++)
+	{
+		for(j=i+1; j<iNumVehiculos; j++)
+		{
+			if(strcmp(mis_vehiculos[i].tipo, mis_vehiculos[j].tipo) > 0)
+			{
+				num_tmp = mis_vehiculos[i].num_vehiculo;
+				mis_vehiculos[i].num_vehiculo = mis_vehiculos[j].num_vehiculo;
+				mis_vehiculos[j].num_vehiculo = num_tmp;
+				strcpy (tmp, mis_vehiculos[i].modelo);
+				strcpy (mis_vehiculos[i].modelo, mis_vehiculos[j].modelo);
+				strcpy (mis_vehiculos[j].modelo, tmp);
+				strcpy (tmp, mis_vehiculos[i].tipo);
+				strcpy (mis_vehiculos[i].tipo, mis_vehiculos[j].tipo);
+				strcpy (mis_vehiculos[j].tipo, tmp);
+				strcpy (tmp, mis_vehiculos[i].carroceria);
+				strcpy (mis_vehiculos[i].carroceria, mis_vehiculos[j].carroceria);
+				strcpy (mis_vehiculos[j].carroceria, tmp);
+				strcpy (tmp, mis_vehiculos[i].marca);
+				strcpy (mis_vehiculos[i].marca, mis_vehiculos[j].marca);
+				strcpy (mis_vehiculos[j].marca, tmp);
+			}
+		}
+	}		
+
+}
+
+int busqueda_vehiculos(Vehiculo mis_vehiculos[])
+{   
+    int iContador, iEncontrado;
+	char sCaracteristica[100];
+    	
+	system("cls");
+	printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+	printf("\n____________________BUSQUEDA DE VEHICULOS_____________________________\n\n");
+    printf("\nIntroduzca la caracteristica del vehiculo a buscar (por tipo, por carroceria o por marca): ");
+    fflush(stdin);        	
+    scanf("%s",sCaracteristica);
+    printf("\n");
+ 
+ 	iEncontrado = 0;
+ 	
+	for(iContador = 0 ; (strcmp(mis_vehiculos[iContador].modelo,"") !=0) ; iContador++)
+	{
+		if ( (strstr(mis_vehiculos[iContador].tipo,sCaracteristica) != NULL) || (strstr(mis_vehiculos[iContador].carroceria,sCaracteristica) != NULL) || (strstr(mis_vehiculos[iContador].marca,sCaracteristica) != NULL) )
+		{			
+			iEncontrado ++;		
+			if (iEncontrado == 1)
+			{
+				printf("\n   # %-11s %-35s %-20s %-35s","MODELO", "TIPO","CARROCERIA", "MARCA");
+				printf("\n    ___        _____                              _____               _____\n");				
+			}
+			printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador].marca);
+		}
+	}					
+	printf("\n");
+	
+	if (iEncontrado == 0)
+	{
+		printf("\nNo hay Vehiculos que cumplan la condicion.\n\n");
+		return 1;
+	}
+	else
+	{
+		printf("\n");
+		return 0;
+	}
+		
+}
