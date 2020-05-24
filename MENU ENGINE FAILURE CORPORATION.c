@@ -817,3 +817,40 @@ void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[])
 }
 	
 }
+
+void leer_vehiculos_fichero (Vehiculo mis_vehiculos[])
+{   
+    int iContador;
+	FILE *pFichero;
+
+
+	int num_vehiculo;
+    	    
+	pFichero = fopen("Vehiculos.txt","r");
+	
+	if (pFichero == NULL)
+	{	
+		printf("\nError al abrir el fichero de Vehiculos.\n");
+		system("pause");		
+	}
+	else
+	{	
+		printf("\nFichero de Vehiculos abierto correctamente.\n");
+		iContador = 0;
+		while ( !feof(pFichero) )
+		{
+			fscanf(pFichero, "%d; %[^;]; %[^;]; %[^;]; %[^;];\n", &num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador].marca);
+			mis_vehiculos[iContador].num_vehiculo = num_vehiculo;
+							
+			eliminar_espacios (mis_vehiculos[iContador].modelo);
+			eliminar_espacios (mis_vehiculos[iContador].tipo);
+			eliminar_espacios (mis_vehiculos[iContador].carroceria);
+			eliminar_espacios (mis_vehiculos[iContador].marca);										
+		
+			iContador++;
+		}		
+	}
+	        
+	fclose(pFichero);      					
+
+}
