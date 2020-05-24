@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include <stdlib.h>
 typedef struct
 {
 	int num_registro;
@@ -11,21 +12,23 @@ typedef struct
 
 typedef struct
 {
+	int num_vehiculo;
 	char tipo[100];
 	char marca[100];
 	char modelo[100];
 	char carroceria[100];
 	char motor[100];
 } Vehiculo;
+
 void menu_general(Usuario mis_usuarios[], Vehiculo mis_vehiculos[]);
 void menu_usuarios(Usuario mis_usuarios[]);
 void menu_vehiculo (Vehiculo mis_vehiculos[]);
 void alta_usuario(Usuario mis_usuarios[]);
 void listado_usuarios_por_apellido(Usuario mis_usuarios[]);
 void grabar_usuarios_fichero(Usuario mis_usuarios[]);
-void leer_usuarios_fichero (Usuario mis_usuarios[]);
-void eliminar_espacios (char sLiteral[]);
-void ordenar_usuarios (Usuario mis_usuarios[]);
+void leer_usuarios_fichero(Usuario mis_usuarios[]);
+void eliminar_espacios(char sLiteral[]);
+void ordenar_usuarios(Usuario mis_usuarios[]);
 int busqueda_usuarios(Usuario mis_usuarios[]);
 void modificacion_usuarios(Usuario mis_usuarios[]);
 void baja_usuarios(Usuario mis_usuarios[]);
@@ -35,6 +38,8 @@ void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[]);
 void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[]);
 void leer_vehiculos_fichero (Vehiculo mis_vehiculos[]);
 void ordenar_vehiculos_marca (Vehiculo mis_vehiculos[]);
+void ordenar_vehiculos_tipo (Vehiculo mis_vehiculos[]);
+int busqueda_vehiculos(Vehiculo mis_vehiculos[]);
 void modificacion_vehiculos(Vehiculo mis_vehiculos[]);
 void baja_vehiculos(Vehiculo mis_vehiculos[]);
 
@@ -43,8 +48,8 @@ int main()
     Usuario mis_usuarios[100];
     Vehiculo mis_vehiculos[100];  
    
-    leer_usuarios_fichero (mis_usuarios);
-    leer_vehiculo_fichero (mis_vehiculos);    
+    leer_usuarios_fichero(mis_usuarios);
+    leer_vehiculos_fichero(mis_vehiculos);    
     
     menu_general(mis_usuarios, mis_vehiculos);
     
@@ -79,13 +84,13 @@ int iOpcion;
 		{
             case 1:
                 
-		 menu_usuarios(mis_usuarios);
+		     menu_usuarios(mis_usuarios);
                 
             break;
             
             case 2:
             	
-	         menu_vehiculos(mis_vehiculos);
+	         menu_vehiculo(mis_vehiculos);
 				
             break;
             
@@ -116,7 +121,7 @@ int iOpcion;
         do {
 			system("cls");
 			printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
-	    	printf("\n_______________________GESTIÓN DE USUARIOS_______________________________\n\n");
+	    	printf("\n_______________________GESTION DE USUARIOS_______________________________\n\n");
         	printf("\n1. Registrarse.");
         	printf("\n2. Borrar usuario.");
         	printf("\n3. Modificar datos usuario.");
@@ -148,7 +153,7 @@ int iOpcion;
                         
 			case 3:
 				
-				modificar_usuarios(mis_usuarios);
+				modificacion_usuarios(mis_usuarios);
 				grabar_usuarios_fichero (mis_usuarios);
 			
 			break;	
@@ -166,7 +171,7 @@ int iOpcion;
 				
             break;
 				
-			break;				
+				
           
             default:
                 printf("\nOpcion no valida\n");
@@ -177,7 +182,6 @@ int iOpcion;
     
 			
 }
-
  void menu_vehiculo (Vehiculo mis_vehiculos[])
 {   
 int iOpcion;
@@ -210,36 +214,40 @@ int iOpcion;
             case 1:
                 
 			alta_vehiculo(mis_vehiculos);
+			grabar_vehiculos_fichero(mis_vehiculos);
                 
             break;
             
             case 2:
             	
-	           baja_vehiculo(mis_vehiculos);
+	           baja_vehiculos(mis_vehiculos);
 				
             break;
             
             case 3:
             	
-                modificacion_vehiculo(mis_vehiculos);
+                modificacion_vehiculos(mis_vehiculos);
 				
             break;
             
             case 4:
             	
-            	busqueda_vehiculo(mis_vehiculos);
+            	busqueda_vehiculos(mis_vehiculos);
+            	system("pause");
             	
             break;
 			
 			case 5:
 			 
-			  listado_vehiculos_ordenado(mis_vehiculos,iOpcion);
+			  listado_vehiculos_ordenado(mis_vehiculos,"marca");
+			  grabar_vehiculos_fichero (mis_vehiculos);	
 			  
 			  break;
 			  
 			 case 6:	
                     
-				listado_vehiculos_ordenado(mis_vehiculos,iOpcion);
+				listado_vehiculos_ordenado(mis_vehiculos,"tipo");
+				grabar_vehiculos_fichero (mis_vehiculos);	
 					
 				break;
 				    	
@@ -258,7 +266,6 @@ int iOpcion;
 		}
     }while (iOpcion!= 7);
 }
-
 void alta_usuario(Usuario mis_usuarios[])
 {
 	int i;
@@ -282,9 +289,11 @@ void alta_usuario(Usuario mis_usuarios[])
     do
 	{
      	printf("Nickname: ");
-		fflush(stdin);
+		fflush(stdin);	
+		fgets(nickname, 15, stdin);
+		eliminar_espacios(nickname);
  	 	
-		for(iContador = 0 ; ( (strcmp(mis_usuarios[iContador].nickname, nickname)!=0) && (iContador <= iRegistrados ) ); iContador++);
+		for(iContador = 0 ; ( (strcmp(mis_usuarios[iContador].nickname,nickname )!=0) && (iContador <= iRegistrados ) ); iContador++);
 		
 		if (iContador <= iRegistrados)
 			printf("\nEl nickname %s ya está en uso y por tanto no puede ser elegido.\n\n", mis_usuarios[iContador].nickname);	
@@ -302,7 +311,48 @@ void alta_usuario(Usuario mis_usuarios[])
 	eliminar_espacios(mis_usuarios[iRegistrados].apellido);
               
 	
+    do
+	{
+        printf ("e-mail: ");
+        fflush(stdin);
+        fgets(mis_usuarios[iRegistrados].email, 40, stdin);
+		eliminar_espacios(mis_usuarios[iRegistrados].email);      
+        iResultado = comprobar_email(mis_usuarios[iRegistrados].email);
+ 	  
+		if (iResultado==2)
+			printf("\nDireccion de email valida\n\n")  ;
+		else
+			printf("\nDireccion de email no valida\n\n");
+	} while ( iResultado!=2 );
 	
+	printf("\nEl Usuario ha sido dado de alta correctamente.\n\n");
+	system("pause");
+	
+}
+void listado_usuarios_por_apellido(Usuario mis_usuarios[])
+{   
+    int iContador;
+    
+
+	ordenar_usuarios (mis_usuarios);    
+    	    
+	system("cls");
+	printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
+	printf("\n______________LISTADO DE USUARIOS POR APELLIDO_____________________\n\n");
+ 
+	printf("\n   # %-11s %-15s %-25s %-15s","NICKNAME", "EMAIL", "NOMBRE","APELLIDO");
+	printf("\n   _ ___         ______          ________                  _____\n");
+ 
+ 
+	for(iContador = 0 ; (strcmp(mis_usuarios[iContador].nickname,"") !=0) ; iContador++)
+	{
+	
+		printf("\n%4d %-11s %-15s %-25s %-15s", mis_usuarios[iContador].num_registro, mis_usuarios[iContador].nickname,mis_usuarios[iContador].email, mis_usuarios[iContador].nombre, mis_usuarios[iContador].apellido);
+	}
+	printf("\n\n");
+    system("pause");
+	
+}
 void grabar_usuarios_fichero (Usuario mis_usuarios[])
 {   
     int iContador;
@@ -329,7 +379,6 @@ void grabar_usuarios_fichero (Usuario mis_usuarios[])
 	fclose(pFichero);      					
 
 }
-
 void leer_usuarios_fichero (Usuario mis_usuarios[])
 {   
     int iContador;
@@ -365,29 +414,6 @@ void leer_usuarios_fichero (Usuario mis_usuarios[])
 	fclose(pFichero);      					
 
 }
-	
-	
-	
-	
-	
-    do
-	{
-        printf ("e-mail: ");
-        fflush(stdin);
-        fgets(mis_usuarios[iRegistrados].email, 40, stdin);
-		eliminar_espacios(mis_usuarios[iRegistrados].email);      
-        iResultado = comprobar_email(mis_usuarios[iRegistrados].email);
- 	  
-		if (iResultado==2)
-			printf("\nDireccion de email valida\n\n")  ;
-		else
-			printf("\nDireccion de email no valida\n\n");
-	} while ( iResultado!=2 );
-	
-	printf("\nEl Usuario ha sido dado de alta correctamente.\n\n");
-	system("pause");
-}
-
 void eliminar_espacios (char sLiteral[])
 {   
     int iLongitud;
@@ -401,9 +427,9 @@ void eliminar_espacios (char sLiteral[])
 		if (sLiteral[iContador]=='\n')
 			sLiteral[iContador]='\0';	
 
-	
+	for(iContador = iLongitud-1; (iContador>0 && sLiteral[iContador]==' '); iContador--)
 		sLiteral[iContador]='\0';
- }
+		   }
 		   
 void ordenar_usuarios (Usuario mis_usuarios[])
 {
@@ -451,7 +477,6 @@ int iRegistros;
 		}
 	}
 }
-
 int busqueda_usuarios(Usuario mis_usuarios[])
 {   
 
@@ -502,7 +527,6 @@ int busqueda_usuarios(Usuario mis_usuarios[])
 		return 0;
 	}
 }
-
 void modificacion_usuarios(Usuario mis_usuarios[])
 {   
     int iContador, iContador2, iRegistrados;
@@ -602,7 +626,6 @@ void modificacion_usuarios(Usuario mis_usuarios[])
 	system("pause");  
 
 }
-
 void baja_usuarios(Usuario mis_usuarios[])
 {
 	
@@ -685,6 +708,7 @@ void baja_usuarios(Usuario mis_usuarios[])
 }
 
 
+
 int comprobar_email(char email[])
 {   
     int iLongitud;
@@ -756,6 +780,7 @@ void alta_vehiculo(Vehiculo mis_vehiculos[])
 
 	printf("\nEl vehiculo ha sido dado de alta correctamente.\n\n");
 	system("pause");
+		
 }
 
 void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[])
@@ -784,19 +809,19 @@ void listado_vehiculos_ordenado (Vehiculo mis_vehiculos[], char sOpcion[])
     	 
     	    
 
-	printf("\n   # %-15s %-20s %-15s %-15s","MODELO", "TIPO","CARROCERIA", "MARCA");
+	printf("\n   # %-15s %-20s %-15s %-15s","TIPO", "MARCA","MODELO", "CARROCERIA");
 	printf("\n   _ ____        ______                              ______               _____\n");
  
   	
 	for(iContador = 0 ; (strcmp(mis_vehiculos[iContador].modelo,"") !=0) ; iContador++)
 	{
 		
-		printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador].marca);
+		printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].marca, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].carroceria);
 	}
 	printf("\n\n");
     system("pause");
-}
 	
+}
 void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[])
 {   
     int iContador;
@@ -815,15 +840,13 @@ void grabar_vehiculos_fichero (Vehiculo mis_vehiculos[])
 		printf("\nFichero de Vehiculos abierto correctamente.\n");
 		for(iContador = 0 ; (strcmp(mis_vehiculos[iContador].modelo,"") !=0) ; iContador++)
 		{	
-			fprintf(pFichero, "%4d; %-11s; %-35s; %-20s; %-35s;\n", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].marca, mis_vehiculos[iContador].carroceria);			
+			fprintf(pFichero, "%4d; %-11s; %-35s; %-20s; %-35s;\n", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].marca, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].carroceria);			
 		}		
 	}
 
 	fclose(pFichero);      					
 
 }
-	
-
 
 void leer_vehiculos_fichero (Vehiculo mis_vehiculos[])
 {   
@@ -846,7 +869,7 @@ void leer_vehiculos_fichero (Vehiculo mis_vehiculos[])
 		iContador = 0;
 		while ( !feof(pFichero) )
 		{
-			fscanf(pFichero, "%d; %[^;]; %[^;]; %[^;]; %[^;];\n", &num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador].marca);
+			fscanf(pFichero, "%d; %[^;]; %[^;]; %[^;]; %[^;];\n", &num_vehiculo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].marca, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].carroceria);
 			mis_vehiculos[iContador].num_vehiculo = num_vehiculo;
 							
 			eliminar_espacios (mis_vehiculos[iContador].modelo);
@@ -964,10 +987,10 @@ int busqueda_vehiculos(Vehiculo mis_vehiculos[])
 			iEncontrado ++;		
 			if (iEncontrado == 1)
 			{
-				printf("\n   # %-11s %-35s %-20s %-35s","MODELO", "TIPO","CARROCERIA", "MARCA");
-				printf("\n    ___        _____                              _____               _____\n");				
+				printf("\n   # %-11s %-35s %-20s %-35s","TIPO", "MARCA","MODELO", "CARROCERIA");
+				printf("\n   _ ____        ______                              ______               _____\n");				
 			}
-			printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].carroceria, mis_vehiculos[iContador].marca);
+			printf("\n%4d %-11s %-35s %-20s %-35s", mis_vehiculos[iContador].num_vehiculo, mis_vehiculos[iContador].tipo, mis_vehiculos[iContador].marca, mis_vehiculos[iContador].modelo, mis_vehiculos[iContador].carroceria);
 		}
 	}					
 	printf("\n");
@@ -1064,6 +1087,7 @@ void modificacion_vehiculos(Vehiculo mis_vehiculos[])
 	
 }  	
 
+
 void baja_vehiculos(Vehiculo mis_vehiculos[])
 {   
 	
@@ -1140,4 +1164,4 @@ void baja_vehiculos(Vehiculo mis_vehiculos[])
  
 	system("pause");    
 		
-}
+}	  
