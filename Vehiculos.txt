@@ -1,0 +1,6 @@
+   0; Coche      ; AUDI                               ; A6                  ; C6                                 ;
+   2; Coche      ; BMW                                ; SERIE 3             ; E46                                ;
+   3; Coche      ; VOLKSWAGEN                         ; GOLF                ; MK4                                ;
+   4; Coche      ; FORD                               ; MONDEO              ; MK3                                ;
+   5; Furgoneta  ; CITROEN                            ; BERLINGO            ; MK1                                ;
+   1; Moto       ; HONDA                              ; SCOOPY              ; 1999                               ;
