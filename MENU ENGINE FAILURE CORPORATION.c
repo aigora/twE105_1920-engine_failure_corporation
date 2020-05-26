@@ -193,7 +193,7 @@ int iOpcion;
         do {
 			system("cls");
 			printf("\n__________________ENGINE FAILURE CORPORATION__________________________\n\n");		
-	    	printf("\n_______________________MENU VEHICULOS______________________________\n\n");
+	    	printf("\n_______________________GESTION DE VEHICULOS______________________________\n\n");
         	printf("\n1. Añadir vehiculos.");
 	        printf("\n2. Borrar vehiculos.");
 	        printf("\n3. Modificar datos de vehiculos.");
